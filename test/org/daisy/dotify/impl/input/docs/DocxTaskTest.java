@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 import org.daisy.dotify.api.tasks.InternalTaskException;
 import org.junit.Test;
 
-public class DocsTaskTest {
+public class DocxTaskTest {
 
 	@Test
 	public void test_01() throws IOException, InternalTaskException, URISyntaxException {
 		Map<String, Object> params = new HashMap<>();
 		params.put("source-language", "en");
-		DocsTask mt = new DocsTask(params);
+		DocxTask mt = new DocxTask(params);
 		File out = File.createTempFile("test", ".tmp");
 		out.deleteOnExit();
 		mt.execute(new File(this.getClass().getResource("resource-files/input.docx").toURI()), out);
 		List<String> actual = normalize(Files.readAllLines(out.toPath()));
 		List<String> expected = normalize(Files.readAllLines(
-						Paths.get(this.getClass().getResource("resource-files/expected.html").toURI())));
+						Paths.get(this.getClass().getResource("resource-files/docx-expected.html").toURI())));
 		assertEquals(expected, actual);
 	}
 	

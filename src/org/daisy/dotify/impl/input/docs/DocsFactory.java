@@ -15,6 +15,7 @@ public class DocsFactory implements TaskGroupFactory {
 	public DocsFactory() {
 		Set<TaskGroupInformation> tmp = new HashSet<>();
 		tmp.add(TaskGroupInformation.newConvertBuilder("docx", "html").build());
+		tmp.add(TaskGroupInformation.newConvertBuilder("odt", "html").build());
 		information = Collections.unmodifiableSet(tmp);
 	}
 
@@ -25,7 +26,7 @@ public class DocsFactory implements TaskGroupFactory {
 
 	@Override
 	public TaskGroup newTaskGroup(TaskGroupSpecification specification) {
-		return new DocsGroup();
+		return new DocsGroup(specification);
 	}
 
 	@Override

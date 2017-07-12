@@ -27,7 +27,7 @@ import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-public class DocsTask extends ReadWriteTask {
+public class DocxTask extends ReadWriteTask {
 	private static final String SOURCE_LANGUAGE = "source-language";
 	private static final String DEFAULT_LANGUAGE = Locale.getDefault().toLanguageTag();
 	private static final String DEFAULT_OUTPUT_CHARSET = "utf-8";
@@ -35,7 +35,7 @@ public class DocsTask extends ReadWriteTask {
 	private final String language;
 	private final String outputCharset;
 	
-	public DocsTask(Map<String, Object> params) {
+	public DocxTask(Map<String, Object> params) {
 		super("Docx to HTML");
 		this.language = getLanguage(params);
 		this.outputCharset = DEFAULT_OUTPUT_CHARSET;

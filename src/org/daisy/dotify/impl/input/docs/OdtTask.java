@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.daisy.dotify.api.tasks.AnnotatedFile;
-import org.daisy.dotify.api.tasks.DefaultAnnotatedFile;
-import org.daisy.dotify.api.tasks.InternalTaskException;
-import org.daisy.dotify.api.tasks.ReadWriteTask;
-import org.daisy.dotify.api.tasks.TaskOption;
+import org.daisy.streamline.api.media.AnnotatedFile;
+import org.daisy.streamline.api.media.DefaultAnnotatedFile;
+import org.daisy.streamline.api.option.UserOption;
+import org.daisy.streamline.api.tasks.InternalTaskException;
+import org.daisy.streamline.api.tasks.ReadWriteTask;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document.OutputSettings.Syntax;
 import org.jsoup.nodes.Entities.EscapeMode;
@@ -30,7 +30,7 @@ public class OdtTask extends ReadWriteTask {
 	private static final String SOURCE_LANGUAGE = "source-language";
 	private static final String DEFAULT_LANGUAGE = Locale.getDefault().toLanguageTag();
 	private static final String DEFAULT_OUTPUT_CHARSET = "utf-8";
-	private static List<TaskOption> options = null;
+	private static List<UserOption> options = null;
 	private final String language;
 	private final String outputCharset;
 	
@@ -87,16 +87,16 @@ public class OdtTask extends ReadWriteTask {
 		}
 	}
 
-	private static synchronized List<TaskOption> getOptionsInternal() {
+	private static synchronized List<UserOption> getOptionsInternal() {
 		if (options==null) {
 			options = new ArrayList<>();
-			options.add(new TaskOption.Builder(SOURCE_LANGUAGE).description("The primary language of the input file").defaultValue(DEFAULT_LANGUAGE).build());
+			options.add(new UserOption.Builder(SOURCE_LANGUAGE).description("The primary language of the input file").defaultValue(DEFAULT_LANGUAGE).build());
 		}
 		return options;		
 	}
 	
 	@Override
-	public List<TaskOption> getOptions() {
+	public List<UserOption> getOptions() {
 		return getOptionsInternal();
 	}
 }

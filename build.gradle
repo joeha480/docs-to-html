@@ -42,7 +42,7 @@ repositories {
 
 dependencies {
 	provided group: "biz.aQute.bnd", name: "annotation", version: "2.3.0"
-	compile 'org.daisy.dotify:dotify.task-api:3.2.0'
+	compile 'org.daisy.streamline:streamline-api:1.0.0'
 	compile 'fr.opensagres.xdocreport:org.apache.poi.xwpf.converter.xhtml:1.0.6'
 	compile 'fr.opensagres.xdocreport:org.odftoolkit.odfdom.converter.xhtml:1.0.6'
 	compile 'org.jsoup:jsoup:1.10.3'

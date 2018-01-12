@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.daisy.dotify.api.tasks.InternalTaskException;
+import org.daisy.streamline.api.tasks.InternalTaskException;
 import org.junit.Test;
 
 public class OdtTaskTest {

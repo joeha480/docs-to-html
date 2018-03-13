@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,11 +78,11 @@ public class OdtTask extends ReadWriteTask {
 	}
 
 	private static InputStream convertToHtml(File input) throws IOException {
-		try (InputStream in = new FileInputStream(input)) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try (InputStream in = new FileInputStream(input); Writer w = new OutputStreamWriter(bos, "utf-8")) {
 			OdfTextDocument doc = OdfTextDocument.loadDocument(in);
-			XHTMLOptions options = XHTMLOptions.create();	
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			XHTMLConverter.getInstance().convert(doc, bos, options);
+			XHTMLOptions options = XHTMLOptions.create();
+			XHTMLConverter.getInstance().convert(doc, w, options);
 			return new ByteArrayInputStream(bos.toByteArray());
 		} catch (Exception e) {
 			throw new IOException(e);

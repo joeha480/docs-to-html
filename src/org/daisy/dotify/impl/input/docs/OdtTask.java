@@ -31,7 +31,7 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
 public class OdtTask extends ReadWriteTask {
 	private static final String SOURCE_LANGUAGE = "source-language";
 	private static final String DEFAULT_LANGUAGE = Locale.getDefault().toLanguageTag();
-	private static final String DEFAULT_OUTPUT_CHARSET = "utf-8";
+	private static final String UTF_8 = "utf-8";
 	private static List<UserOption> options = null;
 	private final String language;
 	private final String outputCharset;
@@ -39,7 +39,7 @@ public class OdtTask extends ReadWriteTask {
 	public OdtTask(Map<String, Object> params) {
 		super("Odt to HTML");
 		this.language = getLanguage(params);
-		this.outputCharset = DEFAULT_OUTPUT_CHARSET;
+		this.outputCharset = UTF_8;
 	}
 
 	private static String getLanguage(Map<String, Object> params) {
@@ -57,7 +57,7 @@ public class OdtTask extends ReadWriteTask {
 		try (InputStream in = convertToHtml(input.getFile())) {
 			// Using JSoup to clean up html entities
 			org.jsoup.nodes.Document doc2 = Jsoup.parse(in,
-					"utf-8",
+					UTF_8,
 					input.getFile().getParentFile().toURI().toASCIIString(),
 					Parser.xmlParser());
 			doc2.outputSettings()
@@ -79,7 +79,7 @@ public class OdtTask extends ReadWriteTask {
 
 	private static InputStream convertToHtml(File input) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		try (InputStream in = new FileInputStream(input); Writer w = new OutputStreamWriter(bos, "utf-8")) {
+		try (InputStream in = new FileInputStream(input); Writer w = new OutputStreamWriter(bos, UTF_8)) {
 			OdfTextDocument doc = OdfTextDocument.loadDocument(in);
 			XHTMLOptions options = XHTMLOptions.create();
 			XHTMLConverter.getInstance().convert(doc, w, options);

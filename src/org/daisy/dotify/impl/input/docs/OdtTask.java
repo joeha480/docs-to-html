@@ -3,12 +3,12 @@ package org.daisy.dotify.impl.input.docs;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -48,17 +48,18 @@ public class OdtTask extends ReadWriteTask {
 	}
 
 	@Override
+	@Deprecated
 	public void execute(File input, File output) throws InternalTaskException {
 		execute(new DefaultAnnotatedFile.Builder(input).build(), output);
 	}
 
 	@Override
 	public AnnotatedFile execute(AnnotatedFile input, File output) throws InternalTaskException {
-		try (InputStream in = convertToHtml(input.getFile())) {
+		try (InputStream in = convertToHtml(input.getPath())) {
 			// Using JSoup to clean up html entities
 			org.jsoup.nodes.Document doc2 = Jsoup.parse(in,
 					UTF_8,
-					input.getFile().getParentFile().toURI().toASCIIString(),
+					input.getPath().getParent().toUri().toASCIIString(),
 					Parser.xmlParser());
 			doc2.outputSettings()
 				.escapeMode(EscapeMode.xhtml)
@@ -68,7 +69,7 @@ public class OdtTask extends ReadWriteTask {
 			html.attr("xmlns", "http://www.w3.org/1999/xhtml");
 			html.attr("xml:lang", language);
 			Files.write(output.toPath(), doc2.html().getBytes(outputCharset));
-			return new DefaultAnnotatedFile.Builder(output)
+			return new DefaultAnnotatedFile.Builder(output.toPath())
 					.extension("html")
 					.mediaType("application/xhtml+xml")
 					.build();
@@ -77,9 +78,9 @@ public class OdtTask extends ReadWriteTask {
 		}
 	}
 
-	private static InputStream convertToHtml(File input) throws IOException {
+	private static InputStream convertToHtml(Path input) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		try (InputStream in = new FileInputStream(input); Writer w = new OutputStreamWriter(bos, UTF_8)) {
+		try (InputStream in = Files.newInputStream(input); Writer w = new OutputStreamWriter(bos, UTF_8)) {
 			OdfTextDocument doc = OdfTextDocument.loadDocument(in);
 			XHTMLOptions options = XHTMLOptions.create();
 			XHTMLConverter.getInstance().convert(doc, w, options);

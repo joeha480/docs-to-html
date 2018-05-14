@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.daisy.streamline.api.media.DefaultAnnotatedFile;
 import org.daisy.streamline.api.tasks.InternalTaskException;
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class OdtTaskTest {
 		OdtTask mt = new OdtTask(params);
 		File out = File.createTempFile("test", ".tmp");
 		out.deleteOnExit();
-		mt.execute(new File(this.getClass().getResource("resource-files/input.odt").toURI()), out);
+		mt.execute(DefaultAnnotatedFile.with(Paths.get(this.getClass().getResource("resource-files/input.odt").toURI())).build(), out);
 		List<String> actual = normalize(Files.readAllLines(out.toPath()));
 		List<String> expected = normalize(Files.readAllLines(
 						Paths.get(this.getClass().getResource("resource-files/odt-expected.html").toURI())));

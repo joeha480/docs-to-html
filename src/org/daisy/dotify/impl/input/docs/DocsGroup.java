@@ -20,9 +20,9 @@ public class DocsGroup implements TaskGroup {
 	public List<InternalTask> compile(Map<String, Object> parameters)
 			throws TaskSystemException {
 		List<InternalTask> ret = new ArrayList<>();
-		if ("docx".equalsIgnoreCase(specification.getInputFormat())) {
+		if ("docx".equalsIgnoreCase(specification.getInputType().getIdentifier())) {
 			ret.add(new DocxTask(parameters));
-		} else if ("odt".equalsIgnoreCase(specification.getInputFormat())) {
+		} else if ("odt".equalsIgnoreCase(specification.getInputType().getIdentifier())) {
 			ret.add(new OdtTask(parameters));
 		}
 		return ret;

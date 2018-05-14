@@ -3,7 +3,6 @@ package org.daisy.dotify.impl.input.docs;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -47,13 +46,14 @@ public class DocxTask extends ReadWriteTask {
 	}
 
 	@Override
+	@Deprecated
 	public void execute(File input, File output) throws InternalTaskException {
 		execute(new DefaultAnnotatedFile.Builder(input).build(), output);
 	}
 
 	@Override
 	public AnnotatedFile execute(AnnotatedFile input, File output) throws InternalTaskException {
-		try (InputStream in = new FileInputStream(input.getFile())) {
+		try (InputStream in = Files.newInputStream(input.getPath())) {
 			XWPFDocument doc = new XWPFDocument(in);
 			XHTMLOptions options = XHTMLOptions.create();	
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -61,7 +61,7 @@ public class DocxTask extends ReadWriteTask {
 			// Using JSoup to clean up html entities (and set xmlns and xml:lang)
 			org.jsoup.nodes.Document doc2 = Jsoup.parse(new ByteArrayInputStream(bos.toByteArray()),
 					"utf-8",
-					input.getFile().getParentFile().toURI().toASCIIString(),
+					input.getPath().getParent().toUri().toASCIIString(),
 					Parser.xmlParser());
 			doc2.outputSettings()
 				.escapeMode(EscapeMode.xhtml)
@@ -73,7 +73,7 @@ public class DocxTask extends ReadWriteTask {
 			Element head = doc2.getElementsByTag("head").first();
 			head.appendChild(new Element("meta").attr("charset", outputCharset));
 			Files.write(output.toPath(), doc2.html().getBytes(outputCharset));
-			return new DefaultAnnotatedFile.Builder(output)
+			return new DefaultAnnotatedFile.Builder(output.toPath())
 					.extension("html")
 					.mediaType("application/xhtml+xml")
 					.build();

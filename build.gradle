@@ -48,7 +48,7 @@ dependencies {
 	compile 'fr.opensagres.xdocreport:org.apache.poi.xwpf.converter.xhtml:1.0.6'
 	compile 'fr.opensagres.xdocreport:org.odftoolkit.odfdom.converter.xhtml:1.0.6'
 	compile 'org.jsoup:jsoup:1.10.3'
-	testCompile group: "junit", name: "junit", version: "4.7"
+	testCompile group: "junit", name: "junit", version: "4.12"
 }
 
 bundle {
@@ -60,7 +60,8 @@ bundle {
         'Built-By': System.getProperty("user.name"),
         'Built-On': new Date().format('yyyy-MM-dd'),
         'Repository-Revision': "$repoRevision",
-        'Repository-URL': "$repositoryURL"
+        'Repository-URL': "$repositoryURL",
+		'Include-Resource': 'LICENSE, NOTICE'
     ]
 }
 

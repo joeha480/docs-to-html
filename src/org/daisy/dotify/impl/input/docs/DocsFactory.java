@@ -16,6 +16,7 @@ public class DocsFactory implements TaskGroupFactory {
 		Set<TaskGroupInformation> tmp = new HashSet<>();
 		tmp.add(TaskGroupInformation.newConvertBuilder("docx", "html").build());
 		tmp.add(TaskGroupInformation.newConvertBuilder("odt", "html").build());
+		tmp.add(TaskGroupInformation.newConvertBuilder("html", "xhtml").build());
 		information = Collections.unmodifiableSet(tmp);
 	}
 

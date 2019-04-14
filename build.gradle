@@ -26,11 +26,6 @@ sourceSets {
 	test {	java { srcDir 'test' }	resources { srcDir 'test' } }
 }
 
-configurations {
-	provided
-	compile { extendsFrom provided }
-}
-
 compileJava {
     options.encoding = 'UTF-8'
 }

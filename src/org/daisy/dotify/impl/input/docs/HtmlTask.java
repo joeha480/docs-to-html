@@ -1,5 +1,6 @@
 package org.daisy.dotify.impl.input.docs;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import org.daisy.streamline.api.option.UserOption;
 import org.daisy.streamline.api.tasks.InternalTaskException;
 import org.daisy.streamline.api.tasks.ReadWriteTask;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document.OutputSettings.Syntax;
 import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.parser.Parser;
@@ -59,6 +61,10 @@ public class HtmlTask extends ReadWriteTask {
 			Elements html = doc2.getElementsByTag("html");
 			html.attr("xmlns", "http://www.w3.org/1999/xhtml");
 			html.attr("xml:lang", language);
+			Element head = doc2.getElementsByTag("head").first();
+			if (head.getElementsByAttribute("charset").isEmpty()) {
+				head.appendChild(new Element("meta").attr("charset", outputCharset));
+			}
 			Files.write(output.toPath(), doc2.html().getBytes(outputCharset));
 			return new DefaultAnnotatedFile.Builder(output.toPath())
 					.extension("html")

@@ -24,6 +24,8 @@ public class DocsGroup implements TaskGroup {
 			ret.add(new DocxTask(parameters));
 		} else if ("odt".equalsIgnoreCase(specification.getInputType().getIdentifier())) {
 			ret.add(new OdtTask(parameters));
+		} else if ("html".equalsIgnoreCase(specification.getInputType().getIdentifier())) {
+			ret.add(new HtmlTask(parameters));
 		}
 		return ret;
 	}

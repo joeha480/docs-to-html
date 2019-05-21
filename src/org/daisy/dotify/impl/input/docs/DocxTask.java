@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
-import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.daisy.streamline.api.media.AnnotatedFile;
 import org.daisy.streamline.api.media.DefaultAnnotatedFile;
@@ -25,6 +23,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
+
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
 
 public class DocxTask extends ReadWriteTask {
 	private static final String SOURCE_LANGUAGE = "source-language";

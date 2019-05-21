@@ -24,9 +24,10 @@ import org.jsoup.nodes.Document.OutputSettings.Syntax;
 import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-import org.odftoolkit.odfdom.converter.xhtml.XHTMLConverter;
-import org.odftoolkit.odfdom.converter.xhtml.XHTMLOptions;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
+
+import fr.opensagres.odfdom.converter.xhtml.XHTMLConverter;
+import fr.opensagres.odfdom.converter.xhtml.XHTMLOptions;
 
 public class OdtTask extends ReadWriteTask {
 	private static final String SOURCE_LANGUAGE = "source-language";

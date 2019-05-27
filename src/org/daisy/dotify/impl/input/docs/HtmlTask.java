@@ -125,7 +125,7 @@ public class HtmlTask extends ReadWriteTask {
 	static org.jsoup.nodes.Document parse(AnnotatedFile input) throws IOException {
 		try (InputStream in = Files.newInputStream(input.getPath())) {
 			return Jsoup.parse(in,
-				UTF_8,
+				null,
 				input.getPath().getParent().toUri().toASCIIString());
 		}
 	}

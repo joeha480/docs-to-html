@@ -1,2 +1,6 @@
 language: java
 jdk: openjdk11
+after_success:
+- ./upload.sh
+before_install:
+- '[ "$TRAVIS_PULL_REQUEST" == "false" ] && openssl aes-256-cbc -K $encrypted_f380d92b81a9_key -iv $encrypted_f380d92b81a9_iv -in secring.gpg.enc -out secring.gpg -d || echo "no decryption for pull requests"'

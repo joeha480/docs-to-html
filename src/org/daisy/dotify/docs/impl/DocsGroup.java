@@ -1,4 +1,4 @@
-package org.daisy.dotify.impl.input.docs;
+package org.daisy.dotify.docs.impl;
 
 import java.util.ArrayList;
 import java.util.List;

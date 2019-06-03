@@ -1,4 +1,4 @@
-package org.daisy.dotify.impl.input.docs;
+package org.daisy.dotify.docs.impl;
 
 import java.io.IOException;
 import java.nio.file.Path;
